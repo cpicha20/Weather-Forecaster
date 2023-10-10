@@ -33,30 +33,35 @@ function cityWeather() {
       .then(function (data) {
         console.log(data);
         var date = data.list[0].dt_txt.split(" ");
-        $("#weather0H2").text(`${date[0]}`)
-        
-        $("#weather0t").text(`Temp:${data.list[0].main.temp}°F`)
-        
-        $("#weather0w").text(` Wind:${data.list[0].wind.speed}MPH`)
+        $("#weather0H2").text(`${date[0]}`);
+        icon = $(
+          `<img src="https://openweathermap.org/img/wn/${data.list[0].weather[0].icon}@2x.png">`
+        );
+        $("#weather0H2").append(icon);
 
-        $("#weather0h").text( ` Humidity:${data.list[0].main.humidity}`)
-        var x =1;
+        $("#weather0t").text(`Temp: ${data.list[0].main.temp}°F`);
+
+        $("#weather0w").text(` Wind: ${data.list[0].wind.speed}MPH`);
+
+        $("#weather0h").text(` Humidity: ${data.list[0].main.humidity}`);
+        var x = 1;
         for (let i = 0; i < data.list.length; i++) {
           if (data.list[i].dt_txt.endsWith("12:00:00")) {
             date = data.list[i].dt_txt.split(" ");
-            
-            $(`#weather${x}H5`).text(`${date[0]}`)
 
-            
+            $(`#weather${x}H5`).text(`${date[0]}`);
 
-            $(`#weather${x}H5`)
-        
-            $(`#weather${x}t`).text(`Temp:${data.list[i].main.temp}°F`)
-            
-            $(`#weather${x}w`).text(` Wind:${data.list[i].wind.speed}MPH`)
-    
-            $(`#weather${x}h`).text( `Humidity:${data.list[i].main.humidity}%`)
-            x+=1;
+            icon = $(
+              `<img src="https://openweathermap.org/img/wn/${data.list[i].weather[0].icon}@2x.png">`
+            );
+            $(`#weather${x}H5`).append(icon);
+
+            $(`#weather${x}t`).text(`Temp: ${data.list[i].main.temp}°F`);
+
+            $(`#weather${x}w`).text(` Wind: ${data.list[i].wind.speed}MPH`);
+
+            $(`#weather${x}h`).text(`Humidity: ${data.list[i].main.humidity}%`);
+            x += 1;
 
             console.log(data.list[i].dt_txt);
             console.log(data.list[i].main.temp);
@@ -89,7 +94,7 @@ function searchHistory() {
 
     for (let i = 0; i < historyArr.length; i++) {
       historyBttn = $(
-        `<button type="button" class="list-group-item list-group-item-action">${historyArr[i]}</button>`
+        `<button type="button" class="list-group-item list-group-item-action bg-info bg-gradient">${historyArr[i]}</button>`
       );
       historyList.append(historyBttn);
     }
@@ -100,11 +105,12 @@ function searchHistory() {
 
 function loadHistory() {
   var storedData = localStorage.getItem("searchHistory");
-  historyArr = JSON.parse(storedData); 
-  if (historyArr != null) {console.log(historyArr.length);
+  historyArr = JSON.parse(storedData);
+  if (historyArr != null) {
+    console.log(historyArr.length);
     for (let i = 0; i < historyArr.length; i++) {
       historyBttn = $(
-        `<button type="button" class="list-group-item list-group-item-action">${historyArr[i]}</button>`
+        `<button type="button" class="list-group-item list-group-item-action bg-info bg-gradient">${historyArr[i]}</button>`
       );
       historyList.append(historyBttn);
     }
@@ -118,5 +124,8 @@ function forcastWeather() {
 }
 
 
-loadHistory();
+$(function () { 
+  loadHistory();
 $("#search").on("click", forcastWeather);
+g
+});
