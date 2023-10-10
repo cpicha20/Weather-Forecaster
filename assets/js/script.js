@@ -1,3 +1,17 @@
+$(function () {
+  loadHistory();
+  
+
+  $(".historyBtn").on("click", function () {
+   
+   cityInput= $(this).text();
+    cityWeather();
+     console.log($(this).text());
+     
+  });
+
+  $("#search").on("click", forcastWeather);
+});
 var cityInput = $("#cityInput").val();
 var historyList = $("#history");
 
@@ -33,7 +47,8 @@ function cityWeather() {
       .then(function (data) {
         console.log(data);
         var date = data.list[0].dt_txt.split(" ");
-        $("#weather0H2").text(`${date[0]}`);
+        date[0]=date[0].replace(/-/g,"/");
+        $("#weather0H2").text(`${data.city.name} ${date[0]}`);
         icon = $(
           `<img src="https://openweathermap.org/img/wn/${data.list[0].weather[0].icon}@2x.png">`
         );
@@ -45,10 +60,10 @@ function cityWeather() {
 
         $("#weather0h").text(` Humidity: ${data.list[0].main.humidity}`);
         var x = 1;
-        for (let i = 0; i < data.list.length; i++) {
-          if (data.list[i].dt_txt.endsWith("12:00:00")) {
+        for (let i = 7; i < data.list.length; i+=8) {
+          
             date = data.list[i].dt_txt.split(" ");
-
+            date[0]=date[0].replace(/-/g,"/");
             $(`#weather${x}H5`).text(`${date[0]}`);
 
             icon = $(
@@ -62,14 +77,7 @@ function cityWeather() {
 
             $(`#weather${x}h`).text(`Humidity: ${data.list[i].main.humidity}%`);
             x += 1;
-
-            console.log(data.list[i].dt_txt);
-            console.log(data.list[i].main.temp);
-            console.log(data.list[i].main.humidity);
-            console.log(data.list[i].weather[0].main);
-            console.log(data.list[i].wind.speed);
-            console.log(i);
-          }
+   
         }
       });
     cityInput = $("#cityInput").val("");
@@ -83,18 +91,22 @@ function searchHistory() {
     if (historyArr === null) {
       historyArr = [];
     }
+  
     //add to array
-    historyArr.unshift(cityInput);
+    if (!historyArr.includes(cityInput)) {
+      historyArr.unshift(cityInput);
+    }
     // Trim array
-    if (historyArr.length > 5) {
+    if (historyArr.length > 8) {
       historyArr.pop();
       console.log("pop");
     }
+
     historyList.html("");
 
     for (let i = 0; i < historyArr.length; i++) {
       historyBttn = $(
-        `<button type="button" class="list-group-item list-group-item-action bg-info bg-gradient">${historyArr[i]}</button>`
+        `<button type="button" class="historyBtn list-group-item list-group-item-action text-white bg-primary text-center bg-gradient">${historyArr[i]}</button>`
       );
       historyList.append(historyBttn);
     }
@@ -110,7 +122,7 @@ function loadHistory() {
     console.log(historyArr.length);
     for (let i = 0; i < historyArr.length; i++) {
       historyBttn = $(
-        `<button type="button" class="list-group-item list-group-item-action bg-info bg-gradient">${historyArr[i]}</button>`
+        `<button type="button" class="historyBtn list-group-item list-group-item-action text-white text-center bg-primary bg-gradient">${historyArr[i]}</button>`
       );
       historyList.append(historyBttn);
     }
@@ -118,14 +130,11 @@ function loadHistory() {
 }
 
 function forcastWeather() {
+
   cityInput = $("#cityInput").val();
   searchHistory();
   cityWeather();
+  console.log("here");
 }
 
 
-$(function () { 
-  loadHistory();
-$("#search").on("click", forcastWeather);
-g
-});

@@ -1,11 +1,36 @@
+*{
+    font-weight: bold;
+    color: whitesmoke;
+}
+
+h2{
+    color: whitesmoke;
+}
+
+h5{
+    color: whitesmoke;
+}
+
+#cityInput{
+    color: black;
+}
+#search{
+    color: black;
+}
 
 h1{
     text-align: center;
     padding: 5px 0px;
-    border-top: 20px;
+    border-radius: 0 0 5px 5px ;
+    color: whitesmoke;
+}
+
+body{
+
+    background-color: antiquewhite;
 }
 
 .card{
-    background-color: rgb(170, 230, 252);
+    background-color: rgb(13,110,253);
 }
 
