@@ -23,7 +23,6 @@ function cityGeo() {
 }
 
 function cityWeather() {
-  cityInput = $("#cityInput").val();
   if (cityInput) {
     fetch(
       `http://api.openweathermap.org/data/2.5/forecast?q=${cityInput}&&units=imperial&appid=e061405c4316ec1d131b1d349216f1f6`
@@ -48,26 +47,52 @@ function cityWeather() {
   }
 }
 
-function searchHistory(params) {
-  var storedData = localStorage.getItem("save");
+function searchHistory() {
+  var storedData = localStorage.getItem("searchHistory");
   historyArr = JSON.parse(storedData);
   if (cityInput) {
-    if (historyArr.length <= 5) {
-      historyArr.pop();
+    if (historyArr === null) {
+      historyArr = [];
     }
-
+    //add to array
     historyArr.unshift(cityInput);
+    // Trim array
+    if (historyArr.length >= 5) {
+      historyArr.pop();
+      console.log("pop");
+    }
+    historyList.html("");
 
     for (let i = 0; i < historyArr.length; i++) {
       historyBttn = $(
         `<button type="button" class="list-group-item list-group-item-action">${historyArr[i]}</button>`
       );
       historyList.append(historyBttn);
-      
+    }
+    var jsonString = JSON.stringify(historyArr);
+    localStorage.setItem("searchHistory", jsonString);
+  }
+}
+
+function loadHistory() {
+  var storedData = localStorage.getItem("searchHistory");
+  historyArr = JSON.parse(storedData); 
+  if (historyArr != null) {console.log(historyArr.length);
+    for (let i = 0; i < historyArr.length; i++) {
+      historyBttn = $(
+        `<button type="button" class="list-group-item list-group-item-action">${historyArr[i]}</button>`
+      );
+      historyList.append(historyBttn);
     }
   }
 }
 
-function forcastWeather() {}
+function forcastWeather() {
+  cityInput = $("#cityInput").val();
+  searchHistory();
+  cityWeather();
+}
 
-$("#search").on("click", cityWeather);
+
+loadHistory();
+$("#search").on("click", forcastWeather);
