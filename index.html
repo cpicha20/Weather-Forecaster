@@ -17,14 +17,14 @@
     <main class="row">
       <div class="col-4 pb-3 m-0 border-0 m-0 border-0">
         <div id="forms" class="p-3 m-0 border-0 m-0 border-0 align-middle">
-          <input type="text" id="cityInput" class="align-middle" />
-          <button id="search" class="align-middle">Search</button>
+          <input type="text" id="cityInput" class="align-middle p-2 w-75"/>
+          <button id="search" class="align-middle p-2">Search</button>
         </div>
+        <!-- Div that will be populated with local storage buttons -->
         <div id="history" class="list-group">
-          
-
         </div>
       </div>
+      <!-- Current Day forcast -->
       <div id="weatherDisplay" class="col-8 d pb-3">
         <div class="main card bg-gradient mb-3">
           <div class="card-body">
@@ -34,6 +34,7 @@
             <span id="weather0h" class="d-block mb-1"></span>
           </div>
         </div>
+        <!-- 5-Day forcast cards -->
         <div class="row g-4">
           <div id="weather1" class="col">
             <div class="card bg-gradient">

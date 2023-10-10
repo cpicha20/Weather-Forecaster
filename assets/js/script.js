@@ -60,8 +60,10 @@ function cityWeather() {
 
         $("#weather0h").text(` Humidity: ${data.list[0].main.humidity}`);
         var x = 1;
-        for (let i = 7; i < data.list.length; i+=8) {
-          
+        for (let i = 8; i <= data.list.length; i+=8) {
+            if (i==40) {
+              i-=1;
+            }
             date = data.list[i].dt_txt.split(" ");
             date[0]=date[0].replace(/-/g,"/");
             $(`#weather${x}H5`).text(`${date[0]}`);
