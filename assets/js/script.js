@@ -32,8 +32,32 @@ function cityWeather() {
       })
       .then(function (data) {
         console.log(data);
+        var date = data.list[0].dt_txt.split(" ");
+        $("#weather0H2").text(`${date[0]}`)
+        
+        $("#weather0t").text(`Temp:${data.list[0].main.temp}°F`)
+        
+        $("#weather0w").text(` Wind:${data.list[0].wind.speed}MPH`)
+
+        $("#weather0h").text( ` Humidity:${data.list[0].main.humidity}`)
+        var x =1;
         for (let i = 0; i < data.list.length; i++) {
           if (data.list[i].dt_txt.endsWith("12:00:00")) {
+            date = data.list[i].dt_txt.split(" ");
+            
+            $(`#weather${x}H5`).text(`${date[0]}`)
+
+            
+
+            $(`#weather${x}H5`)
+        
+            $(`#weather${x}t`).text(`Temp:${data.list[i].main.temp}°F`)
+            
+            $(`#weather${x}w`).text(` Wind:${data.list[i].wind.speed}MPH`)
+    
+            $(`#weather${x}h`).text( `Humidity:${data.list[i].main.humidity}%`)
+            x+=1;
+
             console.log(data.list[i].dt_txt);
             console.log(data.list[i].main.temp);
             console.log(data.list[i].main.humidity);
@@ -57,7 +81,7 @@ function searchHistory() {
     //add to array
     historyArr.unshift(cityInput);
     // Trim array
-    if (historyArr.length >= 5) {
+    if (historyArr.length > 5) {
       historyArr.pop();
       console.log("pop");
     }
