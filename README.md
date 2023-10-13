@@ -16,4 +16,4 @@ The purpose of this challenge was to learn how to familiarize, impliment, and ut
 
 ## Preview 
 
-![Preview](/assets/images/Screenshot%202023-10-10%20195008.png)g
+![Preview](/assets/images/Screenshot%202023-10-10%20195008.png)
