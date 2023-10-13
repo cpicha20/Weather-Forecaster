@@ -20,7 +20,7 @@ var historyArr = [];
 function cityGeo() {
   cityInput = $("#cityInput").val();
   fetch(
-    `http://api.openweathermap.org/geo/1.0/direct?q=${cityInput}&limit=1&appid=e061405c4316ec1d131b1d349216f1f6`
+    `https://api.openweathermap.org/geo/1.0/direct?q=${cityInput}&limit=1&appid=e061405c4316ec1d131b1d349216f1f6`
   )
     .then(function (response) {
       return response.json();
@@ -39,7 +39,7 @@ function cityGeo() {
 function cityWeather() {
   if (cityInput) {
     fetch(
-      `http://api.openweathermap.org/data/2.5/forecast?q=${cityInput}&&units=imperial&appid=e061405c4316ec1d131b1d349216f1f6`
+      `https://api.openweathermap.org/data/2.5/forecast?q=${cityInput}&&units=imperial&appid=e061405c4316ec1d131b1d349216f1f6`
     )
       .then(function (response) {
         return response.json();
