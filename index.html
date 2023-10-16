@@ -13,16 +13,17 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body class="container-fluid">
+    <!-- Header -->
     <header><h1 class="bg-primary bg-gradient">Weather Forcaster</h1></header>
+   <!-- Main Content -->
     <main class="row">
       <div class="col-4 pb-3 m-0 border-0 m-0 border-0">
         <div id="forms" class="p-3 m-0 border-0 m-0 border-0 align-middle">
-          <input type="text" id="cityInput" class="align-middle p-2 w-75"/>
+          <input type="text" id="cityInput" class="align-middle p-2 w-75" />
           <button id="search" class="align-middle p-2">Search</button>
         </div>
         <!-- Div that will be populated with local storage buttons -->
-        <div id="history" class="list-group">
-        </div>
+        <div id="history" class="list-group"></div>
       </div>
       <!-- Current Day forcast -->
       <div id="weatherDisplay" class="col-8 d pb-3">
@@ -38,7 +39,7 @@
         <div class="row g-4">
           <div id="weather1" class="col">
             <div class="card bg-gradient">
-              <div class="card-body ">
+              <div class="card-body">
                 <h5 id="weather1H5" class="card-title text-light"></h5>
                 <span id="weather1t" class="d-block mb-1"><br /></span>
                 <span id="weather1w" class="d-block mb-1"><br /></span>

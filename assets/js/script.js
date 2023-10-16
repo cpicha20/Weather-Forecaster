@@ -12,11 +12,13 @@ $(function () {
 
   $("#search").on("click", forcastWeather);
 });
+
+
 var cityInput = $("#cityInput").val();
 var historyList = $("#history");
-
 var historyArr = [];
 
+//retrieve city geocoordinates 
 function cityGeo() {
   cityInput = $("#cityInput").val();
   fetch(
@@ -36,6 +38,7 @@ function cityGeo() {
     });
 }
 
+// Call weather API to retrieve weather data
 function cityWeather() {
   if (cityInput) {
     fetch(
@@ -46,8 +49,11 @@ function cityWeather() {
       })
       .then(function (data) {
         console.log(data);
+        //Format date text
         var date = data.list[0].dt_txt.split(" ");
         date[0]=date[0].replace(/-/g,"/");
+
+        //main weather display 
         $("#weather0H2").text(`${data.city.name} ${date[0]}`);
         icon = $(
           `<img src="https://openweathermap.org/img/wn/${data.list[0].weather[0].icon}@2x.png">`
@@ -59,6 +65,8 @@ function cityWeather() {
         $("#weather0w").text(` Wind: ${data.list[0].wind.speed}MPH`);
 
         $("#weather0h").text(` Humidity: ${data.list[0].main.humidity}`);
+        
+        //5day forcast display
         var x = 1;
         for (let i = 8; i <= data.list.length; i+=8) {
             if (i==40) {
@@ -86,6 +94,7 @@ function cityWeather() {
   }
 }
 
+//Add new search entrys as buttons to the page
 function searchHistory() {
   var storedData = localStorage.getItem("searchHistory");
   historyArr = JSON.parse(storedData);
@@ -111,12 +120,23 @@ function searchHistory() {
         `<button type="button" class="historyBtn list-group-item list-group-item-action text-white bg-primary text-center bg-gradient">${historyArr[i]}</button>`
       );
       historyList.append(historyBttn);
-    }
+
+     
+    } 
+    //create new on click function for new buttons
+      $(".historyBtn").on("click", function () {
+   
+        cityInput= $(this).text();
+         cityWeather();
+          console.log($(this).text());
+          
+       });
     var jsonString = JSON.stringify(historyArr);
     localStorage.setItem("searchHistory", jsonString);
   }
 }
 
+//Load local storage
 function loadHistory() {
   var storedData = localStorage.getItem("searchHistory");
   historyArr = JSON.parse(storedData);
@@ -131,6 +151,7 @@ function loadHistory() {
   }
 }
 
+//init function
 function forcastWeather() {
 
   cityInput = $("#cityInput").val();
